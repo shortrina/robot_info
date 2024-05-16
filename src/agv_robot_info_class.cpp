@@ -6,17 +6,17 @@
 #include "robotinfo_msgs/RobotInfo10Fields.h"
 
 
-AgvRobotInfo::AgvRobotInfo(ros::NodeHandle *node_handle) : RobotInfo(node_handle)
+AGVRobotInfo::AGVRobotInfo(ros::NodeHandle *node_handle) : RobotInfo(node_handle)
 {
     RobotInfo *robot_info = new RobotInfo(node_handle);
 }
 
 
-AgvRobotInfo::~AgvRobotInfo()
+AGVRobotInfo::~AGVRobotInfo()
 {
 }
 
-void AgvRobotInfo::publish_data()
+void AGVRobotInfo::publish_data()
 {
     info_data_.data_field_01 = m_robot_info.robot_description;
     info_data_.data_field_02 = m_robot_info.robot_serial_number;
@@ -26,7 +26,7 @@ void AgvRobotInfo::publish_data()
     info_pub_.publish(info_data_);
 }
 
-void AgvRobotInfo::infoCallback(const robotinfo_msgs::RobotInfo10Fields::ConstPtr &imsg)
+void AGVRobotInfo::infoCallback(const robotinfo_msgs::RobotInfo10Fields::ConstPtr &imsg)
 {
   info_data_ = *imsg;
   ROS_INFO("info_data: %s", imsg->data_field_01.c_str() );
@@ -41,20 +41,11 @@ void AgvRobotInfo::infoCallback(const robotinfo_msgs::RobotInfo10Fields::ConstPt
   ROS_INFO("info_data: %s", imsg->data_field_10.c_str() );
 }
 
-#if 0
-bool AgvRobotInfo::trigger_srv_callback(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &res)
-{
-    publish_data();
-    res.success = true;
-    return true;
-}
-#endif
-
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "agv_robot_info_class");
     ros::NodeHandle nh;
-    AgvRobotInfo robot_info(&nh);
+    AGVRobotInfo robot_info(&nh);
 
     while(ros::ok())
     {
