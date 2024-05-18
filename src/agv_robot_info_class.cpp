@@ -9,6 +9,7 @@
 AGVRobotInfo::AGVRobotInfo(ros::NodeHandle *node_handle) : RobotInfo(node_handle)
 {
     RobotInfo *robot_info = new RobotInfo(node_handle);
+    m_hydraulic_system_monitor = HydraulicSystemMonitor();
 }
 
 
@@ -23,6 +24,9 @@ void AGVRobotInfo::publish_data()
     info_data_.data_field_03 = m_robot_info.robot_ip_address;
     info_data_.data_field_04 = m_robot_info.robot_firmware_version;
     info_data_.data_field_05 = maximum_payload;
+    info_data_.data_field_06 = m_hydraulic_system_monitor.hydraulic_oil_temperature;
+    info_data_.data_field_07 = m_hydraulic_system_monitor.hydraulic_oil_tank_fill_level;
+    info_data_.data_field_08 = m_hydraulic_system_monitor.hydraulic_oil_pressure;
     info_pub_.publish(info_data_);
 }
 
@@ -41,6 +45,7 @@ void AGVRobotInfo::infoCallback(const robotinfo_msgs::RobotInfo10Fields::ConstPt
   ROS_INFO("info_data: %s", imsg->data_field_10.c_str() );
 }
 
+#if 0
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "agv_robot_info_class");
@@ -57,3 +62,4 @@ int main(int argc, char **argv)
     ros::spin();
     return 0;
 }
+#endif

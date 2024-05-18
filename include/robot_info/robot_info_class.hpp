@@ -6,7 +6,6 @@
 
 class RobotInfo
 {
-
 protected:
     struct robotInfo{
         std::string robot_description;
@@ -28,7 +27,6 @@ public:
     RobotInfo(ros::NodeHandle *node_handle);
     ~RobotInfo();
 
-    void publish_data();
+    virtual void publish_data();
     void infoCallback(const robotinfo_msgs::RobotInfo10Fields::ConstPtr &imsg);
-    //bool trigger_srv_callback(std_srvs::Trigger::Request &req, std_srvs::Trigger::Response &res);
 };

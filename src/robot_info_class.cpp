@@ -6,10 +6,10 @@ RobotInfo::RobotInfo(ros::NodeHandle *node_handle)
     info_sub_ = nh->subscribe(info_topic_name, 10000, &RobotInfo::infoCallback, this);
     info_pub_ = nh->advertise<robotinfo_msgs::RobotInfo10Fields>("robot_info", 10000);
 
-    m_robot_info.robot_description = "robot_description:Mir100";
-    m_robot_info.robot_serial_number = "serial_number:567A359";
-    m_robot_info.robot_ip_address = "ip_address:169.254.5.180";
-    m_robot_info.robot_firmware_version="firmware_version:3.5.8";
+    m_robot_info.robot_description = " robot_description:Mir100";
+    m_robot_info.robot_serial_number = " serial_number:567A359";
+    m_robot_info.robot_ip_address = " ip_address:169.254.5.180";
+    m_robot_info.robot_firmware_version=" firmware_version:3.5.8";
 
 }
 
