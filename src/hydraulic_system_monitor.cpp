@@ -1,8 +1,8 @@
-#include <string>
-#include "../include/robot_info/robot_info_class.hpp"
 #include "../include/robot_info/agv_robot_info_class.hpp"
+#include "../include/robot_info/robot_info_class.hpp"
+#include <string>
 
-
+#if 0
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "agv_robot_info_class");
@@ -19,3 +19,4 @@ int main(int argc, char **argv)
     ros::spin();
     return 0;
 }
+#endif
