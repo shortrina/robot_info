@@ -1,4 +1,5 @@
 #include "../include/robot_info/agv_robot_info_class.hpp"
+#include "hydraulic_system_monitor.cpp"
 #include "robot_info/robot_info_class.hpp"
 #include "robotinfo_msgs/RobotInfo10Fields.h"
 #include "ros/console.h"
@@ -9,19 +10,20 @@
 
 AGVRobotInfo::AGVRobotInfo(ros::NodeHandle *node_handle)
     : RobotInfo(node_handle) {
-  robot_info = new RobotInfo(node_handle);
-  // m_hydraulic_system_monitor = HydraulicSystemMonitor();
+
+  m_hydraulic_system_monitor = new HydraulicSystemMonitor;
 }
 
-AGVRobotInfo::~AGVRobotInfo() {}
+AGVRobotInfo::~AGVRobotInfo() { delete m_hydraulic_system_monitor; }
 
 void AGVRobotInfo::publish_data() {
   info_data_.data_field_05 = maximum_payload;
-#if 0    
-    info_data_.data_field_06 = m_hydraulic_system_monitor.hydraulic_oil_temperature;
-    info_data_.data_field_07 = m_hydraulic_system_monitor.hydraulic_oil_tank_fill_level;
-    info_data_.data_field_08 = m_hydraulic_system_monitor.hydraulic_oil_pressure;
-#endif
+
+  info_data_.data_field_06 =
+      m_hydraulic_system_monitor->hydraulic_oil_temperature;
+  info_data_.data_field_07 =
+      m_hydraulic_system_monitor->hydraulic_oil_tank_fill_level;
+  info_data_.data_field_08 = m_hydraulic_system_monitor->hydraulic_oil_pressure;
   info_pub_.publish(info_data_);
 }
 
